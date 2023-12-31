@@ -1,0 +1,47 @@
+# Copyright (c) 2023 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_BB40
+
+config ZMK_KEYBOARD_NAME
+    default "BB40"
+
+config ZMK_SLEEP
+    default y
+    depends on SOC_SERIES_NRF52X #TODO: Keep an eye on this, suspect ZMK proper will institute better guarding when people actually start trying RP2040s
+
+if ZMK_BACKLIGHT
+
+config PWM
+    default y if DT_HAS_PWM_LEDS_ENABLED
+
+# TODO: For some reason ZMK lights *all* the LEDs, even the one on the PillBug. Disable GPIO LEDs if the PWM ones are in effect to avoid this
+# TODO: Find out if this also happens on BlackPills
+# TODO: Find out why it happens and fix whatever the problem is
+config LED_GPIO
+    default n if LED_PWM
+
+endif
+
+## TODO: Won't work without a ZMK PR.
+## Unless someone has intentionally chosen their own thread, default to the global thread if an EC11 encoder exists to cut down on boilerplate
+#choice EC11_TRIGGER_MODE
+#    default EC11_TRIGGER_GLOBAL_THREAD
+#    depends on EC11
+#endchoice
+
+config EC11
+    default n if NRFX_QDEC
+
+# Add delays for BlackPill to stop double matrix reads on first row
+if SOC_FAMILY_STM32
+
+config ZMK_KSCAN_MATRIX_WAIT_BEFORE_INPUTS
+    default 150
+
+config ZMK_KSCAN_MATRIX_WAIT_BETWEEN_OUTPUTS
+    default 150
+
+endif
+
+endif

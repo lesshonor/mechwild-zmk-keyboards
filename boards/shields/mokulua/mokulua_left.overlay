@@ -1,0 +1,11 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "mokulua.dtsi"
+
+&left_encoder {
+    status = "okay";
+};

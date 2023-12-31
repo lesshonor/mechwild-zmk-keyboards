@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
+
+// Remove this node if you didn't build with an encoder.
+&encoder {
+    status = "okay";
+};
+
+/ {
+    behaviors {
+        bt_enc_rotate: bt_rotate {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&bt BT_NXT>, <&bt BT_PRV>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &kp KP_N7  &kp KP_N8  &kp KP_N9   &kp KP_SLASH     &kp K_CALC
+                &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_MULTIPLY  &tog 1
+                &kp KP_N1  &kp KP_N2  &kp KP_N3   &kp KP_PLUS      &kp BSPC
+                &kp KP_N0  &kp KP_DOT &kp KP_NUM  &kp KP_MINUS     &kp KP_ENTER  &kp C_MUTE
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        layer_1 {
+            bindings = <
+                &trans        &trans        &trans        &trans  &trans
+                &bt BT_SEL 4  &trans        &trans        &trans  &trans
+                &bt BT_SEL 1  &bt BT_SEL 1  &bt BT_SEL 3  &trans  &trans
+                &bt BT_SEL 0  &trans        &trans        &trans  &trans  &ext_power EP_TOG
+            >;
+            sensor-bindings = <&bt_enc_rotate>;
+        };
+    };
+};

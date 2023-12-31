@@ -1,0 +1,38 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+&i2c1 {
+    status = "disabled";
+};
+
+&timers4 {
+    status = "okay";
+
+    pwm4: pwm {
+        status = "okay";
+        pinctrl-0 = <&tim4_ch2_pb7 &tim4_ch3_pb8 &tim4_ch4_pb9>;
+        pinctrl-names = "default";
+    };
+};
+
+/ {
+    // Delete the existing GPIO LEDs.
+    /delete-node/ indicator_leds;
+
+    indicator_leds: indicator_leds {
+        compatible = "pwm-leds";
+        // Note: You cannot use PWM_MSEC here. It will fail silently.
+        top_led: pwm_led_0 {
+            pwms = <&pwm4 2 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
+        middle_led: pwm_led_1 {
+            pwms = <&pwm4 3 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
+        bottom_led: pwm_led_2 {
+            pwms = <&pwm4 4 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
+    };
+};

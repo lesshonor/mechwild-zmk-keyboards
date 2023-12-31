@@ -1,0 +1,87 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/rgb.h>
+
+#define TIMEOUT 50
+
+// Delete this node if you didn't build with an encoder.
+&encoder {
+    status = "okay";
+};
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+        combo_reset {
+            timeout-ms = <TIMEOUT>;
+            key-positions = <0 12>;
+            bindings = <&sys_reset>;
+        };
+        combo_bootloader {
+            timeout-ms = <TIMEOUT>;
+            key-positions = <0 13>;
+            bindings = <&bootloader>;
+        };
+   };
+
+    behaviors {
+        rgb_rotation: encoder_rotation_0 {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            display-name = "default";
+            bindings = <
+    &kp Q        &kp W       &kp E       &kp R    &kp T         &kp Y         &kp U      &kp I       &kp O        &kp P            &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp C_MUTE
+    &kp A        &kp S       &kp D       &kp F    &kp G         &kp H         &kp J      &kp K       &kp L        &kp ESC          &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_N0
+    &mt LCTRL Z  &mt LALT X  &mt LGUI C  &kp V    &lt 1 BSPC    &lt 2 SPACE   &lt 3 B    &mt RALT N  &mt RCTRL M  &mt RSHFT ENTER  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_MINUS
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+        numpad_layer {
+            display-name = "numpad";
+            bindings = <
+    &trans  &trans  &trans  &trans  &trans  &trans   &kp PSCRN  &kp LBKT   &kp RBKT  &kp BSLH   &kp N7  &kp N8  &kp N9  &kp KP_NLCK
+    &trans  &trans  &trans  &trans  &trans  &trans   &trans     &kp GRAVE  &kp SEMI  &kp SQT    &kp N4  &kp N5  &kp N6  &kp N0
+    &trans  &trans  &trans  &trans  &trans  &kp TAB  &kp LGUI   &kp COMMA  &kp DOT   &kp SLASH  &kp N1  &kp N2  &kp N3  &kp KP_EQUAL
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+        punctuation_layer {
+            display-name = "symbols";
+            bindings = <
+    &trans  &trans  &trans  &trans  &trans   &trans  &trans  &kp LBRC   &kp RBRC   &kp PIPE   &kp AMPS  &kp STAR   &kp LPAR   &kp CLCK
+    &trans  &trans  &trans  &trans  &trans   &trans  &trans  &kp TILDE  &kp COLON  &kp DQT    &kp DLLR  &kp PRCNT  &kp CARET  &kp RPAR
+    &trans  &trans  &trans  &trans  &kp DEL  &trans  &trans  &kp LT     &kp GT     &kp QMARK  &kp EXCL  &kp AT     &kp HASH   &kp PLUS
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+        fn3_layer {
+            display-name = "fn layer";
+            bindings = <
+    &kp F1           &kp F2           &kp F3           &kp F4           &kp F5          &kp F6           &kp F7           &kp F8           &kp F9           &kp F10          &kp F11          &kp F12  &trans  &trans
+    &rgb_ug RGB_TOG  &rgb_ug RGB_HUI  &rgb_ug RGB_HUD  &rgb_ug RGB_SAI  &rgb_ug RGB_SAD &rgb_ug RGB_BRI  &rgb_ug RGB_BRD  &rgb_ug RGB_SPI  &rgb_ug RGB_SPD  &rgb_ug RGB_EFF  &rgb_ug RGB_EFR  &trans   &trans  &trans
+    &out OUT_TOG     &bt BT_NXT       &bt BT_CLR       &trans           &trans          &trans           &trans           &trans           &trans           &trans           &trans           &trans   &trans  &trans
+            >;
+
+            sensor-bindings = <&rgb_rotation>;
+        };
+    };
+};
