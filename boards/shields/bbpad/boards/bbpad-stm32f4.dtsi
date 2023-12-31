@@ -1,0 +1,21 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/* BlackPill board definition in Zephyr enables ADC1 on A1, PWM4 on B6/B7 */
+&adc1 {
+    status = "disabled";
+};
+
+&spi1 {
+    status = "disabled";
+};
+
+&timers4 {
+    status = "disabled";
+    pwm {
+        status = "disabled";
+    };
+};

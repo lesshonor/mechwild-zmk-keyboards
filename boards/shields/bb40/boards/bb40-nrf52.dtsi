@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+&pwm0 {
+    status = "okay";
+    pinctrl-0 = <&pwm0_default>;
+    pinctrl-1 = <&pwm0_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+qdec_encoder: &qdec0 {
+    status = "disabled";
+    led-pre = <0>;
+    steps = <80>;
+    pinctrl-0 = <&qdec_default>;
+    pinctrl-1 = <&qdec_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+/ {
+    // Delete the existing GPIO LEDs.
+    /delete-node/ indicator_leds;
+
+    indicator_leds: indicator_leds {
+        compatible = "pwm-leds";
+        top_led: pwm_led_0 {
+            pwms = <&pwm0 0 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
+        middle_led: pwm_led_1 {
+            pwms = <&pwm0 1 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
+        bottom_led: pwm_led_2 {
+            pwms = <&pwm0 2 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
+    };
+};

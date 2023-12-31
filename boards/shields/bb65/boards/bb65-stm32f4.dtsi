@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/* BlackPill board definition in Zephyr enables ADC1 on A1 by default */
+&adc1 {
+    status = "disabled";
+};
+
+/* TODO: QDEC? */
+/*
+&timers5 {
+    status = "okay";
+
+    qdec_encoder: qdec {
+        status = "okay";
+        pinctrl-0 = <&tim5_ch3_pa2 &tim5_ch4_pa3>;
+        pinctrl-names = "default";
+    };
+};
+*/

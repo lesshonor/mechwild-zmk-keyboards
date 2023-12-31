@@ -1,0 +1,43 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "bb40-nrf52.dtsi"
+
+&pinctrl {
+    pwm0_default: pwm0_default {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 0)>,
+                    <NRF_PSEL(PWM_OUT1, 1, 4)>,
+                    <NRF_PSEL(PWM_OUT2, 1, 6)>;
+        };
+    };
+
+    pwm0_sleep: pwm0_sleep {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 0)>,
+                    <NRF_PSEL(PWM_OUT1, 1, 4)>,
+                    <NRF_PSEL(PWM_OUT2, 1, 6)>;
+            low-power-enable;
+        };
+    };
+
+    qdec_default: qdec_default {
+        group1 {
+            psels = <NRF_PSEL(QDEC_A, 0, 15)>,
+                    <NRF_PSEL(QDEC_B, 0, 17)>;
+            bias-pull-up;
+        };
+    };
+
+    qdec_sleep: qdec_sleep {
+        group1 {
+            psels = <NRF_PSEL(QDEC_A, 0, 15)>,
+                    <NRF_PSEL(QDEC_B, 0, 17)>;
+            bias-pull-up;
+            low-power-enable;
+        };
+    };
+};

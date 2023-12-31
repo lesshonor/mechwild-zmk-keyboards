@@ -1,0 +1,55 @@
+# Copyright (c) 2021 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_MURPHPAD
+
+config ZMK_KEYBOARD_NAME
+    default "MurphPad"
+
+config ZMK_SLEEP
+    default y
+    depends on SOC_SERIES_NRF52X #TODO: Keep an eye on this, suspect ZMK proper will institute better guarding when people actually start trying RP2040s
+
+config ZMK_RGB_UNDERGLOW
+    default y
+    depends on SOC_SERIES_NRF52X #TODO: Keep an eye on this
+    imply WS2812_STRIP
+
+## TODO: Won't work without a ZMK PR.
+## Unless someone has intentionally chosen their own thread, default to the global thread if an EC11 encoder exists to cut down on boilerplate
+#choice EC11_TRIGGER_MODE
+#    default EC11_TRIGGER_GLOBAL_THREAD
+#    depends on EC11
+#endchoice
+
+if ZMK_DISPLAY
+
+config I2C
+    default y
+
+config SSD1306
+    default y
+
+config SSD1306_REVERSE_MODE
+    default y
+
+endif # ZMK_DISPLAY
+
+if LVGL
+
+config LV_Z_VDB_SIZE
+    default 64
+
+config LV_Z_DPI
+    default 148
+
+config LV_Z_BITS_PER_PIXEL
+    default 1
+
+choice LV_COLOR_DEPTH
+    default LV_COLOR_DEPTH_1
+endchoice
+
+endif # LVGL
+
+endif
