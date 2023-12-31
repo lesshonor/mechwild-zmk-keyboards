@@ -1,0 +1,14 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "pillbug-pinctrl_0_1.dtsi"
+#include "blackpill_pins_0_1.dtsi"
+
+/ {
+    EXT_POWER {
+        control-gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
+    };
+};

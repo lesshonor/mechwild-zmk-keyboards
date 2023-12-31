@@ -1,0 +1,15 @@
+# Copyright (c) 2023 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_BBPAD
+
+config ZMK_KEYBOARD_NAME
+    default "BBPad"
+
+config ZMK_RGB_UNDERGLOW
+    depends on ZMK_BOARD_PILLBUG
+
+config ZMK_SLEEP
+    depends on ZMK_BOARD_PILLBUG
+
+endif

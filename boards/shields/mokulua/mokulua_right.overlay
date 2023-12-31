@@ -1,0 +1,67 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "mokulua.dtsi"
+
+&standard_all_transform {
+    col-offset = <6>;
+};
+
+&standard_full_backspace_transform {
+    col-offset = <6>;
+};
+
+&standard_full_lshift_transform {
+    col-offset = <6>;
+};
+
+&standard_full_rshift_transform {
+    col-offset = <6>;
+};
+
+&standard_full_backspace_full_lshift_transform {
+    col-offset = <6>;
+};
+
+&standard_full_backspace_full_rshift_transform {
+    col-offset = <6>;
+};
+
+&standard_full_backspace_full_lshift_full_rshift_transform {
+    col-offset = <6>;
+};
+
+&mirrored_all_transform {
+    col-offset = <6>;
+};
+
+&mirrored_full_backspace_transform {
+    col-offset = <6>;
+};
+
+&mirrored_full_lshift_transform {
+    col-offset = <6>;
+};
+
+&mirrored_full_rshift_transform {
+    col-offset = <6>;
+};
+
+&mirrored_full_backspace_full_lshift_transform {
+    col-offset = <6>;
+};
+
+&mirrored_full_backspace_full_rshift_transform {
+    col-offset = <6>;
+};
+
+&mirrored_full_backspace_full_lshift_full_rshift_transform {
+    col-offset = <6>;
+};
+
+&right_encoder {
+    status = "okay";
+};
