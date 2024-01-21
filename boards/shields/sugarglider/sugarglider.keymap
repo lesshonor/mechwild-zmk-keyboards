@@ -1,0 +1,121 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+*/
+
+#include <behaviors.dtsi>
+#include <behaviors/mouse_keys.dtsi>
+
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/rgb.h>
+
+/* If you didn't build with one or more of the encoders, change the &sensors node to only include the one(s) you used. */
+&sensors {
+    sensors = <&left_encoder &middle_encoder &horizontal_encoder &right_encoder>;
+};
+
+/ {
+    /* If you built with the larger OLED, use &wide_oled here instead. */
+    chosen {
+        zephyr,display = &oled;
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        tri_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
+    behaviors {
+        trans_rot: encoder_rotation_0 {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&trans>, <&trans>;
+        };
+
+        rgb_rot_bri: encoder_rotation_1 {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
+        };
+
+        rgb_rot_eff: encoder_rotation_2 {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_EFF>, <&rgb_ug RGB_EFR>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+        default_layer {
+            display-name = "default";
+            bindings = <
+        &gresc      &kp Q       &kp W  &kp E       &kp R       &kp T                           &out OUT_BLE  &kp Y     &kp U      &kp I      &kp O    &kp P      &kp BSPC
+        &kp LCTRL   &kp A       &kp S  &kp D       &kp F       &kp G               &kp C_MUTE  &out OUT_USB  &kp H     &kp J      &kp K      &kp L    &kp SQT    &kp ENTER
+        &kp LSHFT   &kp Z       &kp X  &kp C       &kp V       &kp B                           &bt BT_PRV    &kp N     &kp M      &kp COMMA  &kp DOT  &kp FSLH   &kp RSHFT
+                    &kp C_MUTE         &kp LGUI    &kp LALT    &mo 1    &mkp LCLK  &kp SPACE   &mkp RCLK     &mo 2     &kp SPACE  &kp RSHFT           &kp C_MUTE
+            >;
+            sensor-bindings = <
+                &rgb_rot_eff
+                &inc_dec_kp C_VOL_UP C_VOL_DN
+                &inc_dec_kp C_VOL_UP C_VOL_DN
+                &rgb_rot_bri
+            >;
+        };
+
+        layer_1 {
+            bindings = <
+                &trans  &kp EXCL   &kp AT     &kp HASH  &kp DLLR  &kp PRCNT                  &trans    &kp CARET  &kp AMPS  &kp STAR   &kp LPAR   &kp RPAR  &trans
+                &trans  &kp MINUS  &kp EQUAL  &trans    &trans    &trans             &trans  &trans    &trans     &kp LBKT  &kp RBKT   &kp BSLH   &kp DQT   &trans
+                &trans  &trans     &trans     &trans    &trans    &trans                     &trans    &trans     &kp HOME  &kp PG_DN  &kp PG_UP  &kp END   &trans
+                        &trans                &trans    &trans    &trans     &trans  &trans  &trans    &trans     &trans    &trans              &trans
+            >;
+            sensor-bindings =<
+                &trans_rot
+                &inc_dec_kp RIGHT LEFT
+                &trans_rot
+                &inc_dec_kp RIGHT LEFT
+            >;
+        };
+
+        layer_2 {
+            display-name = "nav";
+            bindings = <
+                &trans  &kp N1     &kp N2     &kp N3  &kp N4  &kp N5                    &trans    &kp N6  &kp N7    &kp N8    &kp N9    &kp N0     &kp DEL
+                &trans  &kp MINUS  &kp EQUAL  &trans  &trans  &trans            &trans  &trans    &trans  &kp LBKT  &kp RBKT  &kp PIPE  &kp SQT    &trans
+                &trans  &trans     &trans     &trans  &trans  &trans                    &trans    &trans  &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans
+                        &trans                &trans  &trans  &trans    &trans  &trans  &trans    &trans  &trans    &trans              &trans
+            >;
+            sensor-bindings = <
+                &trans_rot
+                &inc_dec_kp HOME END
+                &inc_dec_kp HOME END
+                &inc_dec_kp RIGHT LEFT
+            >;
+        };
+
+        layer_3 {
+            display-name = "rgb";
+            bindings = <
+                &trans  &kp F1   &kp F2   &kp F3  &kp F4  &kp F5                         &trans    &kp F6  &kp F7  &kp F8    &kp F9        &kp F10          &kp DEL
+                &trans  &kp F11  &kp F12  &trans  &trans  &trans                 &trans  &trans    &trans  &trans  &trans    &kp C_BRI_DN  &rgb_ug RGB_EFR  &rgb_ug RGB_TOG
+                &trans  &trans   &trans   &trans  &trans  &trans                         &trans    &trans  &trans  &trans    &kp C_BRI_UP  &rgb_ug RGB_EFF  &trans
+                        &trans            &trans  &trans  &bootloader    &trans  &trans  &trans    &trans  &trans  &trans                  &trans
+            >;
+            sensor-bindings = <
+                &trans_rot
+                &inc_dec_kp C_BRI_UP C_BRI_DN
+                &inc_dec_kp C_BRI_UP C_BRI_DN
+                &trans_rot
+            >;
+        };
+    };
+};

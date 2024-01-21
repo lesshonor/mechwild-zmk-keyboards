@@ -1,0 +1,40 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "sugarglider-nrf52.dtsi"
+
+&pinctrl {
+    spi3_default: spi3_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 22)>;
+        };
+    };
+
+    spi3_sleep: spi3_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 22)>;
+            low-power-enable;
+        };
+    };
+
+    pwm0_default: pwm0_default {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 19)>,
+                    <NRF_PSEL(PWM_OUT1, 0, 12)>,
+                    <NRF_PSEL(PWM_OUT2, 0, 25)>;
+        };
+    };
+
+    pwm0_sleep: pwm0_sleep {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 19)>,
+                    <NRF_PSEL(PWM_OUT1, 0, 12)>,
+                    <NRF_PSEL(PWM_OUT2, 0, 25)>;
+            low-power-enable;
+        };
+    };
+
+};

@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/* BlackPill board definition in Zephyr enables PWM4 on B6 and B7 by default */
+
+&timers4 {
+    status = "disabled";
+    pwm {
+       /delete-property/ pinctrl-0;
+       /delete-property/ pinctrl-names;
+        status = "disabled";
+	};
+};
+
+blackpill_i2c: &i2c1 {
+    pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
+};

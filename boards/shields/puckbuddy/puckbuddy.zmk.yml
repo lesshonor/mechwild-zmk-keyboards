@@ -1,0 +1,13 @@
+file_format: "1"
+id: puckbuddy
+name: PuckBuddy
+type: shield
+url: https://mechwild.com/product/puckbuddy/
+requires: [blackpill]
+exposes: [i2c_oled]
+features:
+  - display
+  - encoder
+  - keys
+  - underglow
+  - pointer

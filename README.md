@@ -22,7 +22,7 @@ manifest:
       import: app/west.yml
     - name: mechwild-zmk-keyboards # Add the name of the repository as a project.
       remote: lesshonor            # This has to match the name for the user you put in the "remote" earlier.
-      revision: main               # This is the the branch of the repository you need. Most of the time you can leave this as main.
+      revision: cirque             # This is the the branch of the repository you need. Most of the time you can leave this as main.
   self:
     path: config
 ```
@@ -142,7 +142,5 @@ Until a compatible GPIO or PWM driver is written for Zephyr, BlackPills have add
 | BB65           | :x:                | :white_check_mark: |
 | OBE            | :x:                | :x:                |
 | Waka60         | :x:                | :white_check_mark: |
-<!--
 | PuckBuddy      | :x:                | :x:                |
 | Sugar Glider   | :white_check_mark: | :white_check_mark: |
--->

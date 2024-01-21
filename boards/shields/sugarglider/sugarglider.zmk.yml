@@ -1,0 +1,13 @@
+file_format: "1"
+id: sugarglider
+name: Sugar Glider
+type: shield
+url: https://mechwild.com/product/sugarglider/
+requires: [blackpill]
+exposes: [i2c_oled]
+features:
+  - display
+  - encoder
+  - keys
+  - underglow
+  - pointer
