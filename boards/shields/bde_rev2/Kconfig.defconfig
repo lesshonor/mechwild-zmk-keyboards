@@ -14,6 +14,9 @@ config ZMK_RGB_UNDERGLOW
     default y
     imply WS2812_STRIP
 
+config ZMK_DISPLAY
+    default y
+
 if ZMK_DISPLAY
 
 config I2C
