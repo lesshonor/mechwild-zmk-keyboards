@@ -32,6 +32,9 @@ config ZMK_RGB_UNDERGLOW
 #    depends on EC11
 #endchoice
 
+config ZMK_DISPLAY
+    default y
+
 if ZMK_DISPLAY
 
 config I2C
