@@ -5,14 +5,13 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/zmk/hid_usage.h>
 
 #include "obe-layouts.dtsi"
 
 / {
     chosen {
         zmk,kscan = &kscan;
-        /* WIP */
-        zmk,backlight = &indicator_leds;
     };
 
     kscan: kscan {
@@ -115,6 +114,18 @@
         };
         right_led: led_1 {
             gpios = <&blackpill 45 GPIO_ACTIVE_HIGH>;
+        };
+    };
+
+    indicator_cfg {
+        compatible = "mechwild,indicators";
+        left_led_cfg: config1 {
+            dev = <&left_led>;
+            hid-indicators = <HID_USAGE_LED_NUM_LOCK>;
+        };
+        right_led_cfg: config2 {
+            dev = <&right_led>;
+            hid-indicators = <HID_USAGE_LED_CAPS_LOCK>;
         };
     };
 };

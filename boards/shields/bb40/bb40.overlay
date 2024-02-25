@@ -5,14 +5,13 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/zmk/hid_usage.h>
 
 #include "bb40-layouts.dtsi"
 
 / {
     chosen {
         zmk,kscan = &kscan;
-        /* WIP */
-        zmk,backlight = &indicator_leds;
     };
 
     kscan: kscan {
@@ -89,6 +88,22 @@
         };
         bottom_led: led_2 {
             gpios = <&blackpill 46 GPIO_ACTIVE_HIGH>;
+        };
+    };
+
+    indicator_cfg {
+        compatible = "mechwild,indicators";
+        top_led_cfg: config1 {
+            dev = <&top_led>;
+            hid-indicators = <HID_USAGE_LED_NUM_LOCK>;
+        };
+        middle_led_cfg: config2 {
+            dev = <&middle_led>;
+            hid-indicators = <HID_USAGE_LED_CAPS_LOCK>;
+        };
+        bottom_led_cfg: config3 {
+            dev = <&bottom_led>;
+            hid-indicators = <HID_USAGE_LED_SCROLL_LOCK>;
         };
     };
 };
