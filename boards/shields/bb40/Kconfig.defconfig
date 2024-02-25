@@ -10,7 +10,13 @@ config ZMK_SLEEP
     default y
     depends on SOC_SERIES_NRF52X #TODO: Keep an eye on this, suspect ZMK proper will institute better guarding when people actually start trying RP2040s
 
-if ZMK_BACKLIGHT
+config ZMK_HID_INDICATORS
+    default y
+
+if ZMK_HID_INDICATORS
+
+config LED
+    default y
 
 config PWM
     default y if DT_HAS_PWM_LEDS_ENABLED
