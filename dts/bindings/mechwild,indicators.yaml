@@ -1,0 +1,25 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+#include <dt-bindings/zmk/hid_usage.h>
+
+# This should probably be split into multiple bindings: a parent for the LED indicator and what it does when triggered, plus "children" for stuff like HID vs more arbitrary stuff like BLE profiles and layers. We'll see how this goes, though.
+
+compatible: "mechwild,indicators"
+
+description: "HID and/or layer indicators. Maybe even arbitrary indicators ooooo"
+
+child-binding:
+  description: "A configuration for a given indicator"
+
+  properties:
+    dev:
+      type: phandle
+      required: true
+    leds:
+      type: int #eventually maybe an array, not sure if we're separating out led_strip vs single LEDs...
+    hid-indicators:
+      type: int
+    layers:
+      type: array
+      default: [-1]

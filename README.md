@@ -22,7 +22,7 @@ manifest:
       import: app/west.yml
     - name: mechwild-zmk-keyboards # Add the name of the repository as a project.
       remote: lesshonor            # This has to match the name for the user you put in the "remote" earlier.
-      revision: main               # This is the the branch of the repository you need. Most of the time you can leave this as main.
+      revision: indicators         # This is the the branch of the repository you need. Most of the time you can leave this as main.
   self:
     path: config
 ```
@@ -82,6 +82,28 @@ chosen { zmk,matrix_transform = &mirrored_transform; };
 
 All the available layouts a keyboard supports are listed in its `.overlay` file in this repository, and in its Keymap Editor `.json` [over in the MechWild ZMK config repo](https://github.com/lesshonor/mechwild-zmk-config/tree/main/config). If a layout you want is missing, you are welcome to ask about it in Discord or open a GitHub issue.
 
+### Indicator LEDs (single color)
+
+HID indicators (caps/num/scroll/compose/kana) are in beta. You will need to fully remove and re-pair the keyboard for LED status to update wirelessly.
+
+The LED configurations can be customized in your keymap by referring back to the nodes in its shield's `.overlay` file.
+
+E.g., for OBE:
+```dts
+&left_led_cfg {
+    hid-indicators = <HID_USAGE_LED_NUM_LOCK>;
+};
+```
+
+Or BB40:
+```dts
+&bottom_led_cfg {
+    hid-indicators = <(HID_USAGE_LED_SCROLL_LOCK | HID_USAGE_LED_COMPOSE)>;
+};
+```
+
+Multiple indicators can be combined (as shown above) and the LED will light when either is in effect. The full list of available `HID_USAGE_LED_*` defines is specified in [`include/dt-bindings/zmk/hid_usage.h`](https://github.com/zmkfirmware/zmk/blob/c9c620d19f603ea0c9d4264eff885912803ff74d/app/include/dt-bindings/zmk/hid_usage.h#L512-L516), but note that only the five values highlighted are broadly supported by modern operating systems.
+
 ## Known Issues
 
 ### OLEDs
@@ -96,12 +118,6 @@ Workarounds:
 2. If `CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER=y` is set in your configuration file, turn on RGB. Then try step 1.
 3. Add `&ext_power EP_ON` to your keymap and press the key to *make sure* external power is on. Then try step 2.
 4. [Modify the PCB](https://github.com/lesshonor/mechwild-zmk-keyboards/tree/main/boards/shields/murphpad#connecting-display-vcc-to-raw) so the OLED is powered from RAW instead of VCC.
-
-### Indicator LEDs (single color)
-
-- Affects: BB40, OBE
-
-HID indicators (caps/num/scroll/kana lock) don't work yet. *This is in progress.*
 
 ### Piezo Speaker
 

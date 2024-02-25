@@ -16,7 +16,13 @@ config ZMK_RGB_UNDERGLOW
     depends on !SOC_SERIES_STM32F4X
     imply WS2812_STRIP
 
-if ZMK_BACKLIGHT
+config ZMK_HID_INDICATORS
+    default y
+
+if ZMK_HID_INDICATORS
+
+config LED
+    default y
 
 config PWM
     default y if DT_HAS_PWM_LEDS_ENABLED
