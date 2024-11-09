@@ -6,10 +6,11 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 
+#include "obe-layouts.dtsi"
+
 / {
     chosen {
         zmk,kscan = &kscan;
-        zmk,matrix-transform = &default_transform;
         /* WIP */
         zmk,backlight = &indicator_leds;
     };
