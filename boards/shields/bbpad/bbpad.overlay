@@ -6,10 +6,11 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 
+#include "bbpad-layouts.dtsi"
+
 / {
     chosen {
         zmk,kscan = &kscan;
-        zmk,matrix-transform = &horizontal_all_transform;
     };
 
     kscan: kscan {
