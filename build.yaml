@@ -1,0 +1,4 @@
+---
+include:
+  - board: blackpill_f401ce
+    shield: bb40
