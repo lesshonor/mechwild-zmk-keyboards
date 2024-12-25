@@ -1,0 +1,75 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/led/led.h>
+
+/*
+ * BlackPill board definition in Zephyr enables ADC1 on A1, PWM4 on B6/B7, USART1 on A9/A10 by default.
+ */
+
+&blackpill_serial {
+/*
+not sure why this doesn't work
+    /delete-attribute/ pinctrl-0;
+    /delete-attribute/ pinctrl-names;
+ */
+    status = "disabled";
+};
+
+&adc1 {
+    status = "disabled";
+};
+
+&timers4 {
+    status = "disabled";
+    pwm {
+        status = "disabled";
+	};
+};
+
+/* JP1 can be used to switch MISO from A6 to B4, and JP2 can be used to switch CS from A3 back to A4 */
+&blackpill_spi {
+    pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+};
+
+blackpill_i2c: &i2c1 {
+    pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
+};
+
+&spi3 {
+    status = "okay";
+    pinctrl-0 = <&spi3_mosi_pb5>;
+    pinctrl-names = "default";
+
+    led_strip: ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+
+        /* SPI */
+        reg = <0>; /* ignored, but necessary for SPI bindings */
+        spi-max-frequency = <4000000>;
+
+        /* WS2812 */
+        chain-length = <10>; /* number of LEDs */
+        spi-one-frame = <0x70>;
+        spi-zero-frame = <0x40>;
+
+        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
+    };
+};
+
+/ {
+/*
+ * As it has the same trigger, we could technically re-use the interrupt set on the user button (A0), but removing it to set our own for the expander is more sensible.
+ */
+    /delete-node/ gpio_keys;
+    aliases {
+        /delete-property/ sw0;
+    };
+
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+};

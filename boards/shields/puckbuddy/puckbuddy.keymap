@@ -1,0 +1,77 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <behaviors/mouse_keys.dtsi>
+
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/mouse.h>
+
+/*
+ * If you didn't build with one or more of the encoders, change the &sensors node to only include the one(s) you used.
+ * If you didn't use any, you can delete the entire &sensors node by putting "/delete-node/ &sensors;" here instead.
+ */
+&sensors {
+    sensors = <&left_encoder &right_encoder>;
+};
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            display-name = "default";
+            bindings = <
+                &kp C_MUTE  &mo 3      &mo 2      &mo 1      &kp LG(D)
+                &mo 2                                        &kp HOME
+                &mo 3                                        &kp END
+                &mkp MCLK                                    &trans
+                &mkp LCLK   &mkp RCLK  &mkp RCLK  &mkp LCLK
+            >;
+            sensor-bindings = <
+                &inc_dec_kp C_VOL_UP C_VOL_DN
+                &inc_dec_kp PG_UP PG_DN	
+            >;
+        };
+
+        adjust_layer {
+            display-name = "wip";
+            bindings = <
+                &rgb_ug RGB_TOG  &trans     &trans     &trans  &trans
+                &trans                                         &trans
+                &trans                                         &trans
+                &trans                                         &trans
+                &kp HOME         &kp PG_UP  &kp PG_DN  &kp END
+            >;
+        };
+
+        rgb_layer {
+            display-name = "rgb";
+            bindings = <
+                &trans  &trans  &trans  &trans  &rgb_ug RGB_TOG
+                &trans                          &rgb_ug RGB_EFF
+                &trans                          &rgb_ug RGB_EFR
+                &trans                          &trans
+                &trans  &trans  &trans  &trans
+            >;
+        };
+
+        mgmt_layer {
+            display-name = "mgmt";
+            bindings = <
+                &trans  &trans  &trans  &trans  &bootloader
+                &trans                          &bt BT_NXT
+                &trans                          &out OUT_TOG
+                &trans                          &trans
+                &trans  &trans  &trans  &trans
+            >;
+        };
+    };
+};
