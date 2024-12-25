@@ -1,4 +1,6 @@
 build:
+  depends:
+    - cirque-input-module
   cmake: .
   settings:
     board_root: .
