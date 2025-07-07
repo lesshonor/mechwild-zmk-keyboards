@@ -305,6 +305,6 @@
 };
 
 /* EEPROM IC, WIP I guess? */
-&blackpill_i2c {
+&i2c1 {
     status = "disabled";
 };
