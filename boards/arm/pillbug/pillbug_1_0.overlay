@@ -1,8 +1,0 @@
-/*
- * Copyright (c) 2022 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
-#include "pillbug-pinctrl_1_0.dtsi"
-#include "blackpill_pins_1_0.dtsi"
