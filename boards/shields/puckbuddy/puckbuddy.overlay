@@ -5,6 +5,8 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 #include "puckbuddy-layouts.dtsi"
 
@@ -81,6 +83,8 @@
     cirque_input_listener: cirque_input_listener {
         compatible = "zmk,input-listener";
         device = <&cirque>;
+
+        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
     };
 };
 
@@ -94,7 +98,6 @@
         sleep;
         dr-gpios = <&blackpill 12 GPIO_ACTIVE_HIGH>;
         sensitivity = "1x";
-        y-invert;
     };
 };
 

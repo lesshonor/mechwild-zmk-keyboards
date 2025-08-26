@@ -14,16 +14,13 @@ config ZMK_RGB_UNDERGLOW
     default y
     imply WS2812_STRIP
 
-config ZMK_MOUSE
+config ZMK_POINTING
     default y
 
 config ZMK_DISPLAY
     default y
 
-# INPUT and SPI both needed for Cirque
-config INPUT
-    default y
-
+# SPI both needed for Cirque
 config SPI
     default y
 
