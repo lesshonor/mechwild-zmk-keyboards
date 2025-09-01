@@ -25,12 +25,11 @@ config ZMK_RGB_UNDERGLOW
     depends on SOC_SERIES_NRF52X #TODO: Keep an eye on this
     imply WS2812_STRIP
 
-## TODO: Won't work without a ZMK PR.
-## Unless someone has intentionally chosen their own thread, default to the global thread if an EC11 encoder exists to cut down on boilerplate
-#choice EC11_TRIGGER_MODE
-#    default EC11_TRIGGER_GLOBAL_THREAD
-#    depends on EC11
-#endchoice
+# Unless someone has intentionally chosen their own thread, default to the global thread if an EC11 encoder exists to cut down on boilerplate
+choice EC11_TRIGGER_MODE
+    default EC11_TRIGGER_GLOBAL_THREAD
+    depends on EC11
+endchoice
 
 config ZMK_DISPLAY
     default y
