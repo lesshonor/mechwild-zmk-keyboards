@@ -33,6 +33,13 @@ config EC11
 # Add delays for BlackPill to stop double matrix reads
 if SOC_FAMILY_STM32
 
+# Features such as macros crash the board with a smaller stack size.
+config SYSTEM_WORKQUEUE_STACK_SIZE
+    default 2048
+
+config EC11_THREAD_STACK_SIZE
+    default 2048 if EC11_TRIGGER_OWN_THREAD
+
 config ZMK_KSCAN_MATRIX_WAIT_BEFORE_INPUTS
     default 150
 
