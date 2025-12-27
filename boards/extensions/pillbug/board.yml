@@ -1,0 +1,8 @@
+board:
+  extend: pillbug
+  revision:
+    format: major.minor.patch
+    default: 1.0.0
+    revisions:
+      - name: 1.0.0
+      - name: 0.1.0
