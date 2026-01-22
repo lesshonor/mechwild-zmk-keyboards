@@ -42,9 +42,9 @@ If you are migrating to this repository from an older MechWild ZMK repository, y
 | BlackPill F401CC[^1] (`blackpill_f401cc`) | BB40 (`bb40`)                               |
 | BlackPill F411CE[^1] (`blackpill_f401ce`) | BB65 (`bb65`)                               |
 | BlackPill F411CE[^1] (`blackpill_f411ce`) | BBPad (`bbpad`)                             |
-| PillBug v0.1 (`pillbug@0.1`)              | BDE Rev2 (`bde_rev2`)                       |
-| PillBug v1.0 (`pillbug`)                  | Mokulua (`mokulua_left`, `mokulua_right`)   |
-| S40NC[^2] (`s40nc`)                       | MurphPad (`murphpad`)                       |
+| PillBug v1.0 (`pillbug`)                  | BDE Rev2 (`bde_rev2`)                       |
+| S40NC[^2] (`s40nc`)                       | Mokulua (`mokulua_left`, `mokulua_right`)   |
+|                                           | MurphPad (`murphpad`)                       |
 |                                           | OBE (`obe`)                                 |
 |                                           | Waka60 (`waka60`)                           |
 
