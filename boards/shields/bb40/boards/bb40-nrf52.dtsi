@@ -11,16 +11,8 @@
     pinctrl-names = "default", "sleep";
 };
 
-qdec_encoder: &qdec0 {
-    status = "disabled";
-    led-pre = <0>;
-    steps = <80>;
-    pinctrl-0 = <&qdec_default>;
-    pinctrl-1 = <&qdec_sleep>;
-    pinctrl-names = "default", "sleep";
-};
-
 / {
+    /delete-node/ encoder;
     // Delete the existing GPIO LEDs.
     /delete-node/ indicator_leds;
 
@@ -37,3 +29,14 @@ qdec_encoder: &qdec0 {
         };
     };
 };
+
+encoder: &qdec0 {
+    status = "disabled";
+    led-pre = <0>;
+    steps = <80>;
+    pinctrl-0 = <&qdec_default>;
+    pinctrl-1 = <&qdec_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+qdec_encoder: &encoder {};
